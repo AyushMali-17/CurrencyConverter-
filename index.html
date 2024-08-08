@@ -18,18 +18,26 @@
             <select id="fromCurrency">
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="INR">INR</option>
             </select>
         </div>
         <div class="input-group">
             <label for="toCurrency">To:</label>
             <select id="toCurrency">
-                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
                 <option value="GBP">GBP</option>
+                <option value="INR">INR</option>
             </select>
         </div>
         <button onclick="convert()">Convert</button>
         <div class="result" id="result"></div>
+        <div class="chart-container">
+            <canvas id="historicalChart"></canvas>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
