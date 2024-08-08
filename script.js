@@ -14,7 +14,7 @@ async function convert() {
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
     
-    if (amount === '' || isNaN(amount)) {
+    if (!amount || isNaN(amount) || amount <= 0) {
         alert('Please enter a valid amount');
         return;
     }
@@ -83,3 +83,45 @@ async function drawChart(base, target) {
         }
     });
 }
+
+document.getElementById('theme-toggle').addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode');
+});
+
+function resetFields() {
+    document.getElementById('amount').value = '';
+    document.getElementById('fromCurrency').value = 'USD';
+    document.getElementById('toCurrency').value = 'USD';
+    document.getElementById('result').textContent = '';
+}
+
+function validateInput(input) {
+    if (!input || isNaN(input) || input <= 0) {
+        return false;
+    }
+    return true;
+}
+
+async function fetchAndConvert(amount, fromCurrency, toCurrency) {
+    const rates = await fetchExchangeRates();
+    const fromRate = rates[fromCurrency];
+    const toRate = rates[toCurrency];
+    const result = ((amount / fromRate) * toRate).toFixed(2);
+    return result;
+}
+
+document.getElementById('convert-btn').addEventListener('click', async () => {
+    const amount = document.getElementById('amount').value;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+
+    if (!validateInput(amount)) {
+        alert('Please enter a valid amount');
+        return;
+    }
+
+    const result = await fetchAndConvert(amount, fromCurrency, toCurrency);
+    document.getElementById('result').textContent = 
+        `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
+    drawChart(fromCurrency, toCurrency);
+});

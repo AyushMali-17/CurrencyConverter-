@@ -9,6 +9,10 @@
 <body>
     <div class="converter">
         <h1>Currency Converter</h1>
+        <div class="theme-switch">
+            <label for="theme-toggle">Dark Mode:</label>
+            <input type="checkbox" id="theme-toggle">
+        </div>
         <div class="input-group">
             <label for="amount">Amount:</label>
             <input type="number" id="amount" placeholder="Enter amount">
@@ -32,6 +36,7 @@
             </select>
         </div>
         <button onclick="convert()">Convert</button>
+        <button onclick="resetFields()">Reset</button>
         <div class="result" id="result"></div>
         <div class="chart-container">
             <canvas id="historicalChart"></canvas>
